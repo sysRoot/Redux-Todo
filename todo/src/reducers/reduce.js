@@ -1,4 +1,4 @@
-import { ADD_TODO, DEL_TODO } from '../actions/activate';
+import { ADD_TODO, DEL_TODOS, TOG_TODO } from '../actions/activate';
 
 const initialState = {
   TodoData: [{todo: 'some todo', id: 1, completed: false}]
@@ -17,8 +17,11 @@ export default (state = initialState, action) => {
         }
       ];
       return newState;
-    case DEL_TODO:
+    case DEL_TODOS:
       return (newState = { count: newState.count-- });
+    case TOG_TODO:
+      newState.TodoData = [...action.payload];
+      return newState;
     default:
       return state;
   }

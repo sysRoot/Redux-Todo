@@ -3,7 +3,7 @@ import "reset-css";
 import "normalize.css";
 import "./App.css";
 import { connect } from 'react-redux';
-import { addTodo, delTodo } from './actions/activate'
+import { addTodo, delTodos, togTodo } from './actions/activate'
 import TodoForm from "./components/TodoComponents/TodoForm";
 import TodoList from "./components/TodoComponents/TodoList";
 
@@ -59,7 +59,7 @@ class App extends React.Component {
 
 
   toggleHandler = event => {
-    const toggledArray = [...this.state.TodoData]
+    const toggledArray = [...this.props.todos]
     let position = null;
 
     const target = toggledArray.find((cur, index) => {
@@ -67,11 +67,11 @@ class App extends React.Component {
       return cur.id === Number.parseInt(event.target.getAttribute('data-key'), 10)
     });
 
-    target.completed === false ? target.completed = true : target.completed=false;
+    target.completed === false ? target.completed = true : target.completed = false;
     
     toggledArray[position] = target;
 
-    this.setState({TodoData: toggledArray});
+    this.props.togTodo(toggledArray);
   };
 
   render() {
@@ -97,4 +97,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addTodo, delTodo })(App);
+export default connect(mapStateToProps, { addTodo, delTodos, togTodo })(App);
