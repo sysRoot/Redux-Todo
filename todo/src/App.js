@@ -2,6 +2,8 @@ import React from "react";
 import "reset-css";
 import "normalize.css";
 import "./App.css";
+import { connect } from 'react-redux';
+import { addTodo, delTodo } from './actions/activate'
 import TodoForm from "./components/TodoComponents/TodoForm";
 import TodoList from "./components/TodoComponents/TodoList";
 
@@ -13,7 +15,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      TodoData: [],
       inputText: "Input a Todo",
       newItem: "",
       completed: false
@@ -21,14 +22,14 @@ class App extends React.Component {
   }
 
   componentDidMount = () => {
-    if (!localStorage.todoData) {
-      localStorage.setItem('todoData', JSON.stringify(this.state.TodoData))
-    }
+    // if (!localStorage.todoData) {
+    //   localStorage.setItem('todoData', JSON.stringify(this.state.TodoData))
+    // }
 
-    let storedTodoArr = JSON.parse(localStorage.todoData)
-    this.setState({
-      TodoData: storedTodoArr
-    });
+    // let storedTodoArr = JSON.parse(localStorage.todoData)
+    // this.setState({
+    //   TodoData: storedTodoArr
+    // });
   }
   
   componentDidUpdate() {
@@ -38,18 +39,9 @@ class App extends React.Component {
   addNewItem = event => {
     event.preventDefault();
     if (this.state.newItem !== "") {
-      this.setState(
-        prevState => {
-          return {
-            TodoData: [...prevState.TodoData, {
-              todo: this.state.newItem,
-              id: Date.now(),
-              completed: false
-            } ],
-            newItem: ""
-          };
-        },
-      );
+      this.props.addTodo(this.state.newItem)
+      this.setState({newItem: ""});
+      console.log(this.props.todo)
     }
   };
 
@@ -93,10 +85,16 @@ class App extends React.Component {
           formEventHandler={this.formEventHandler}
           clearButton={this.clearHandler}
         />
-        <TodoList todoData={this.state.TodoData} toggleItem={this.toggleHandler} />
+        <TodoList todoData={this.props.todos} toggleItem={this.toggleHandler} />
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+      todos: state.TodoData
+  };
+};
+
+export default connect(mapStateToProps, { addTodo, delTodo })(App);
