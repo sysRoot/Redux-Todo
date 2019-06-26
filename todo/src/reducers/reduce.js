@@ -1,7 +1,7 @@
 import { ADD_TODO, DEL_TODOS, TOG_TODO } from '../actions/activate';
 
 const initialState = {
-  TodoData: [{todo: 'some todo', id: 1, completed: false}]
+  TodoData: []
 };
 
 export default (state = initialState, action) => {
@@ -18,7 +18,8 @@ export default (state = initialState, action) => {
       ];
       return newState;
     case DEL_TODOS:
-      return (newState = { count: newState.count-- });
+      newState.TodoData = [...action.payload];
+      return newState;
     case TOG_TODO:
       newState.TodoData = [...action.payload];
       return newState;

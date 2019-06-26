@@ -52,9 +52,9 @@ class App extends React.Component {
   clearHandler = event =>{
     event.preventDefault();
     
-    const clearedArray = [...this.state.TodoData].filter(cur => cur.completed === false)
+    const clearedArray = [...this.props.todos].filter(cur => cur.completed === false)
 
-    this.setState({TodoData: clearedArray})
+    this.props.delTodos(clearedArray)
   }
 
 

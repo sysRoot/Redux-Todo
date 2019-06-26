@@ -9,10 +9,10 @@ export const addTodo = (todo) => {
     return {type: 'ADD_TODO', payload: todo}
 };
 
-export const delTodos = todos => {
-  console.log(`have I also fired?`)
+export const delTodos = clearedArray => {
+  console.log(`have I also fired?`, clearedArray)
 
-    return {type: 'DEL_TODO'}
+    return {type: 'DEL_TODOS', payload: clearedArray}
 };
 
 export const togTodo = toggledArray => {
