@@ -1,4 +1,4 @@
-import { ADD_TODO, DEL_TODOS, TOG_TODO } from '../actions/activate';
+import { ADD_TODO, DEL_TODOS, TOG_TODO, SET_LOCAL } from '../actions/activate';
 
 const initialState = {
   TodoData: []
@@ -21,6 +21,9 @@ export default (state = initialState, action) => {
       newState.TodoData = [...action.payload];
       return newState;
     case TOG_TODO:
+      newState.TodoData = [...action.payload];
+      return newState;
+    case SET_LOCAL:
       newState.TodoData = [...action.payload];
       return newState;
     default:

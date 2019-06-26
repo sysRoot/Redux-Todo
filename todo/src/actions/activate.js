@@ -1,6 +1,7 @@
 export const ADD_TODO = 'ADD_TODO';
 export const DEL_TODOS = 'DEL_TODOS';
 export const TOG_TODO = 'TOG_TODO';
+export const SET_LOCAL = 'SET_LOCAL'
 
 
 export const addTodo = (todo) => {
@@ -19,4 +20,10 @@ export const togTodo = toggledArray => {
   console.log(`check me out`)
   
   return {type: 'TOG_TODO', payload: toggledArray}
+}
+
+export const setLocal = todoData => {
+  console.log(`check out this sauce`)
+  
+  return {type: 'SET_LOCAL', payload: todoData}
 }

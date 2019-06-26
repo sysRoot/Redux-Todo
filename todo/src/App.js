@@ -3,7 +3,7 @@ import "reset-css";
 import "normalize.css";
 import "./App.css";
 import { connect } from 'react-redux';
-import { addTodo, delTodos, togTodo } from './actions/activate'
+import { addTodo, delTodos, togTodo, setLocal } from './actions/activate'
 import TodoForm from "./components/TodoComponents/TodoForm";
 import TodoList from "./components/TodoComponents/TodoList";
 
@@ -22,18 +22,16 @@ class App extends React.Component {
   }
 
   componentDidMount = () => {
-    // if (!localStorage.todoData) {
-    //   localStorage.setItem('todoData', JSON.stringify(this.state.TodoData))
-    // }
+    if (!localStorage.todoData) {
+      localStorage.setItem('todoData', JSON.stringify(this.props.todos))
+    }
 
-    // let storedTodoArr = JSON.parse(localStorage.todoData)
-    // this.setState({
-    //   TodoData: storedTodoArr
-    // });
+    let storedTodoArr = JSON.parse(localStorage.todoData)
+    this.props.setLocal(storedTodoArr);
   }
   
   componentDidUpdate() {
-    localStorage.setItem('todoData', JSON.stringify(this.state.TodoData))
+    localStorage.setItem('todoData', JSON.stringify(this.props.todos))
   }
 
   addNewItem = event => {
@@ -97,4 +95,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addTodo, delTodos, togTodo })(App);
+export default connect(mapStateToProps, { addTodo, delTodos, togTodo, setLocal })(App);
